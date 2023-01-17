@@ -1,0 +1,43 @@
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@io_bazel_rules_docker//container:layer.bzl", "container_layer")
+load("@io_bazel_rules_docker//container:container.bzl", "container_image")
+
+npm_link_all_packages()
+
+exports_files([
+    "package.json",
+])
+
+genrule(
+    name = "tailwind",
+    srcs = [
+        "//:tailwind.config.js",
+        "//:package.json",
+        "//:node_modules",
+        "//:node_modules/tailwindcss",
+        "//:node_modules/tailwindcss/dir",
+    ],
+    outs = ["tailwind.css"],
+    cmd = " ".join([
+		"$(NODE_PATH)",
+        "./$(execpath //:node_modules/tailwindcss/dir)/lib/cli.js",
+        "-o $(OUTS)",
+        "-c $(location :tailwind.config.js)",
+    ]),
+    toolchains = ["@nodejs_toolchains//:resolved_toolchain"],
+    tools = ["@nodejs_toolchains//:resolved_toolchain"],
+)
+
+container_layer(
+	name = "tailwind_layer",
+	files = [
+		":tailwind",
+	],
+)
+
+container_image(
+	name = "tailwind_image",
+	layers = [
+		":tailwind_layer",
+	],
+)
