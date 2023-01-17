@@ -19,9 +19,14 @@ But `tailwind_image` does not...
 $ bazel build //:tailwind_image
 ```
 
-with `--verbose_failures` shows the command
+with `--verbose_failures` shows the command (formatted across multiple lines manually)
 ```shell
-/bin/bash -c 'source external/bazel_tools/tools/genrule/genrule-setup.sh; external/nodejs_linux_amd64/bin/nodejs/bin/node ./bazel-out/darwin-fastbuild-ST-4a519fd6d3e4/bin/node_modules/.aspect_rules_js/tailwindcss@3.2.4_postcss@8.4.20/node_modules/tailwindcss/lib/cli.js -o bazel-out/darwin-fastbuild-ST-4a519fd6d3e4/bin/tailwind.css -c ./tailwind.config.js')
+/bin/bash -c 'source external/bazel_tools/tools/genrule/genrule-setup.sh; \
+  external/nodejs_linux_amd64/bin/nodejs/bin/node \
+  ./bazel-out/darwin-fastbuild-ST-4a519fd6d3e4/bin/node_modules/.aspect_rules_js/tailwindcss@3.2.4_postcss@8.4.20/node_modules/tailwindcss/lib/cli.js \
+  -o bazel-out/darwin-fastbuild-ST-4a519fd6d3e4/bin/tailwind.css \
+  -c ./tailwind.config.js \
+')
 # Configuration: fa3535a1fd9ac4c54360efc45194abb693bb7710dc2220b225f89f2f0737cc2b
 # Execution platform: @local_config_platform//:host
 
