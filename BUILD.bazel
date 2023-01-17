@@ -6,6 +6,7 @@ npm_link_all_packages()
 
 exports_files([
     "package.json",
+    "index.html",
 ])
 
 genrule(
@@ -13,13 +14,14 @@ genrule(
     srcs = [
         "//:tailwind.config.js",
         "//:package.json",
+        "//:index.html",
         "//:node_modules",
         "//:node_modules/tailwindcss",
         "//:node_modules/tailwindcss/dir",
     ],
     outs = ["tailwind.css"],
     cmd = " ".join([
-		"$(NODE_PATH)",
+        "$(NODE_PATH)",
         "./$(execpath //:node_modules/tailwindcss/dir)/lib/cli.js",
         "-o $(OUTS)",
         "-c $(location :tailwind.config.js)",
@@ -29,15 +31,15 @@ genrule(
 )
 
 container_layer(
-	name = "tailwind_layer",
-	files = [
-		":tailwind",
-	],
+    name = "tailwind_layer",
+    files = [
+        ":tailwind",
+    ],
 )
 
 container_image(
-	name = "tailwind_image",
-	layers = [
-		":tailwind_layer",
-	],
+    name = "tailwind_image",
+    layers = [
+        ":tailwind_layer",
+    ],
 )
