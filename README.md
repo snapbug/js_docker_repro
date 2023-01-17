@@ -32,4 +32,4 @@ Use --sandbox_debug to see verbose messages from the sandbox and retain the sand
 when building the `_layer` rule, `$(NODE_PATH)` evaluates to
 `external/nodejs_darwin_amd64/bin/nodejs/bin/node`, whereas the `_image` rule
 it evaluates to `external/nodejs_linux_amd64/bin/nodejs/bin/node`. This makes
-sense, because I'm on a macbook.
+sense, because I'm on a macbook, and `container_image` transitions to this platform.
